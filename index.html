@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DUMMY MEAT TIMER</title>
+    <style>
+      .timer {
+        position: absolute;
+        font-size: 72px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="timer">Press enter to start.</div>
+
+    <script src="jquery.min.js"></script>
+    <script>
+      var start;
+      var times = [];
+      var interval;
+
+      $(document).click(function(ev) {
+        if (!start) return;
+        times.push(timeDiff());
+      });
+
+      $(document).keypress(function(ev) {
+        if (ev.keyCode != 13) return;
+
+        if (!start) {
+          start = new Date();
+          interval = setInterval(function() {
+            var diff = timeDiff() + '';
+            if (diff.length > 3) {
+              diff = diff.substring(0, diff.length - 3) + '.' + diff.substring(diff.length - 3, diff.length); 
+            } else {
+              diff = '0.' + diff;
+            }
+            $('.timer').html(diff);
+          }, 100);
+        } else {
+          var json = JSON.stringify(times);
+          console.log(json);
+          clearInterval(interval);
+        }
+      });
+
+      function timeDiff() {
+        var now = new Date();
+        return now - start;
+      }
+    </script>
+  </body>
+</html>
