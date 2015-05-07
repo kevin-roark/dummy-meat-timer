@@ -21,7 +21,6 @@
   </head>
   <body>
     <div class="timer">Press enter to start.</div>
-    <div class="time-alert"></div>
 
     <script src="jquery.min.js"></script>
     <script>
@@ -33,15 +32,12 @@
       $(document).click(function(ev) {
         if (!start) return;
         
+        times.push(timeDiff());
+
         $('body').css('background-color', 'red');
         setTimeout(function() {
           $('body').css('background-color', 'white');
-        }, 150);
-        
-        times.push(timeDiff());
-        timeAlert.animate({opacity: 1}, 30, function() {
-          timeAlert.animate({opacity: 0}, 30);
-        });
+        }, 60);
       });
 
       $(document).keypress(function(ev) {
