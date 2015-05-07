@@ -7,20 +7,35 @@
         position: absolute;
         font-size: 72px;
       }
+
+      .time-alert {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        opacity: 0;
+      }
     </style>
   </head>
   <body>
     <div class="timer">Press enter to start.</div>
+    <div class="time-alert"></div>
 
     <script src="jquery.min.js"></script>
     <script>
       var start;
       var times = [];
       var interval;
+      var timeAlert = $('.time-alert');
 
       $(document).click(function(ev) {
         if (!start) return;
         times.push(timeDiff());
+        timeAlert.animate({opacity: 1}, 30, function() {
+          timeAlert.animate({opacity: 0}, 30);
+        });
       });
 
       $(document).keypress(function(ev) {
@@ -40,6 +55,7 @@
         } else {
           var json = JSON.stringify(times);
           console.log(json);
+          $('body').text(json);
           clearInterval(interval);
         }
       });
