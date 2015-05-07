@@ -32,6 +32,12 @@
 
       $(document).click(function(ev) {
         if (!start) return;
+        
+        $('body').css('background-color', 'red');
+        setTimeout(function() {
+          $('body').css('background-color', 'white');
+        }, 150);
+        
         times.push(timeDiff());
         timeAlert.animate({opacity: 1}, 30, function() {
           timeAlert.animate({opacity: 0}, 30);
